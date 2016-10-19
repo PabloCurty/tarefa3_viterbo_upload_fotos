@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="photo-tags" uri="WEB-INF/mytaglib.tld"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% Long id = (Long)request.getSession().getAttribute("id"); %>
 <% int index = (Integer)request.getSession().getAttribute("index"); %>
 <% String subtitle = (String)request.getSession().getAttribute("subtitle"); %>
 <% String author = (String)request.getSession().getAttribute("author"); %>
@@ -28,6 +29,7 @@
                 </td>
                 <td bgcolor='#cccccc' width='120' height='120'>
                     <form align='left' action='SavePhotoServlet' method='post'>
+                    	<input name='id' value='${id}' type='hidden'>
                         Subtitle: <input name='subtitle' value='${subtitle}' type='text'>
                         Author: <input name='author' value='${author}' type='text'>
                         Local: <input name='local' value='${local}' type='text'>

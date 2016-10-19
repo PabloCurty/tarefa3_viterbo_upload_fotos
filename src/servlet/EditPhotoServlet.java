@@ -26,10 +26,12 @@ public class EditPhotoServlet extends HttpServlet
         int index = (new Integer(indexString.trim())).intValue();
         PhotoAlbum pa = PhotoAlbum.getPhotoAlbum(session);
         
+        Long id = pa.getPhotoID(index);
         String subtitle = pa.getPhotoName(index);
         String author = pa.getPhotoAuthor(index);
         String local = pa.getPhotoLocal(index);
         
+        session.setAttribute("id", id);
         session.setAttribute("index", index);
         session.setAttribute("subtitle", subtitle);
         session.setAttribute("author", author);

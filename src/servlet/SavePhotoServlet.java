@@ -40,11 +40,12 @@ public class SavePhotoServlet extends HttpServlet {
         
         int index = (Integer)request.getSession().getAttribute("index");
         
+        Long id = Long.valueOf(request.getParameter("id"));
         String subtitle = request.getParameter("subtitle");
         String author = request.getParameter("author");
         String local = request.getParameter("local");
         
-        pa.editPhoto(index, subtitle, author, local);
+        pa.editPhotoJDBC(index, id, subtitle, author, local);
         
         RequestDispatcher rd = request.getRequestDispatcher("/album.jsp");      
         rd.forward(request, response);

@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,8 +54,24 @@ public class JDBCFotoDAO implements FotoDAO{
 
 	@Override
 	public List<Photo> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Photo> fotos = new ArrayList<Photo>();
+		try {
+			String SQL = "SELECT * FROM foto";
+			PreparedStatement ps = connection.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				Photo foto = new Photo(rs.getLong("id"), rs.getBytes("foto"), rs.getString("place"), rs.getString("author"), rs.getString("subtitle"));
+				fotos.add(foto);
+			}
+			ps.close();
+			rs.close();
+			connection.close();
+		} catch (SQLException e) {
+			Logger.getLogger(JDBCFotoDAO.class.getName()).log(Level.SEVERE, null, e);
+			e.printStackTrace();
+		}
+		return fotos;
+
 	}
 
 	@Override
@@ -64,7 +82,23 @@ public class JDBCFotoDAO implements FotoDAO{
 
 	@Override
 	public void editar(Photo foto) {
-		// TODO Auto-generated method stub
+		
+		try {
+			String SQL = "UPDATE foto set author=?, place=?, subtitle=? WHERE id=?";
+			PreparedStatement ps = connection.prepareStatement(SQL);
+			ps.setString(1, foto.getAuthor());
+			ps.setString(2, foto.getLocal());
+			ps.setString(3, foto.getSubtitle());
+			ps.setLong(4, foto.getId());
+			ps.execute();
+			ps.close();
+			connection.close();
+			
+		} catch (SQLException e) {
+			Logger.getLogger(JDBCFotoDAO.class.getName()).log(Level.SEVERE, null, e);
+			e.printStackTrace();
+		}
+		
 		
 	}
 

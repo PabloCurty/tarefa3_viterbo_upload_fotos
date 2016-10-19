@@ -34,8 +34,32 @@ public class Photo
         this.author = author;
         this.local = local;
     }
+    
+    public Photo(Long id, byte[] data, String subtitle, String author, String local) {
+        this.id = id;
+    	this.data = data;
+        this.subtitle = subtitle;
+        this.author = author;
+        this.local = local;
+    }
+    
+    public Photo(Long id, String subtitle, String author, String local) {
+        this.id = id;
+        this.subtitle = subtitle;
+        this.author = author;
+        this.local = local;
+    }
 
-    public String getLocal() {
+
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLocal() {
         return local;
     }
 

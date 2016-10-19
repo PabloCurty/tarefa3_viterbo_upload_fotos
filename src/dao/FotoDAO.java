@@ -10,6 +10,6 @@ public interface FotoDAO {
 	public void remover(int id);
 	public List<Photo> listar();
 	public Photo buscar(int id);
-	public void editar(Photo foto);
+	public void editar(Photo foto); 
 	
 }

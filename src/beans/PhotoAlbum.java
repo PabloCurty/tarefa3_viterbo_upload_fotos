@@ -13,10 +13,12 @@ import model.Photo;
 import java.util.*;
 import javax.servlet.http.HttpSession;
 
+import dao.DAOFactory;
+
 public class PhotoAlbum 
 {
     public static String ATTRIBUTE_NAME = "Photo_Album";
-    private List<Photo> photoDataList = new ArrayList<Photo>();
+    private static List<Photo> photoDataList = DAOFactory.createFotoDAO().listar(); 
     
     public PhotoAlbum() 
     {
@@ -67,6 +69,11 @@ public class PhotoAlbum
         this.photoDataList.add(photo);
     }
 
+    public Long getPhotoID(int i) 
+    {
+        return photoDataList.get(i).getId();
+    }
+    
     public byte[] getPhotoData(int i) 
     {
         return photoDataList.get(i).getData();
@@ -109,4 +116,11 @@ public class PhotoAlbum
         photoDataList.get(index).setSubtitle(subtitle);
         photoDataList.get(index).setLocal(local);
     }
+    
+    public void editPhotoJDBC(int index, Long id, String subtitle, String author, String local)
+    {
+        Photo foto = new Photo(id, subtitle, author, local);
+        DAOFactory.createFotoDAO().editar(foto);
+    }
+    
 }
