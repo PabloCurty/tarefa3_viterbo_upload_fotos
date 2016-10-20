@@ -38,11 +38,11 @@
                         <input value='Choose' name='myFile'
                                type='file' accept='image/jpeg'><br>
                         Subtitle: <input name='subtitle'
-                               type='text'>
+                               type='text'><br>
                         Author: <input name='author'
-                               type='text'>
+                               type='text'> <br>
                         Local: <input name='local'
-                               type='text'>
+                               type='text'> <br>
                         <input value='Upload' type='submit'><br>
                     </form>
                 </td>

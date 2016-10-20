@@ -10,6 +10,8 @@ package beans;
  * @author Rodrigo
  */
 import model.Photo;
+import utils.Pair;
+
 import java.util.*;
 import javax.servlet.http.HttpSession;
 
@@ -105,6 +107,12 @@ public class PhotoAlbum
         photoDataList.remove(i);
     }
     
+    public Boolean removePhotoJDBC(Pair<Integer, Long> pair) 
+    {
+    	return DAOFactory.createFotoDAO().remover(pair.getSecond());
+    }
+    
+    
     public static PhotoAlbum getPhotoAlbum(HttpSession session) 
     {
         return (PhotoAlbum) session.getAttribute(ATTRIBUTE_NAME);
@@ -120,7 +128,9 @@ public class PhotoAlbum
     public void editPhotoJDBC(int index, Long id, String subtitle, String author, String local)
     {
         Photo foto = new Photo(id, subtitle, author, local);
-        DAOFactory.createFotoDAO().editar(foto);
+        if(!DAOFactory.createFotoDAO().editar(foto)){
+        	editPhoto(index, subtitle, author, local);
+        }
     }
     
 }
